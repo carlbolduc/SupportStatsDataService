@@ -1,0 +1,11 @@
+{
+    "name": "SuppotStatsDataService",
+    "description": "Support Stats Data Service, for non persistant data in Coveo. Each stat represent a number of open cases.",
+    "version": "0.0.1",
+    "private": true,
+    "dependencies": {
+        "express": "3.4.7",
+        "mongoose": "3.8.1",
+        "ejs": "*"
+    }
+}
