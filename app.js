@@ -17,21 +17,21 @@ app.get('/', function(req, res){
 // retrieve
 
 app.get('/dailyTotalStats', function(req, res) {
-  dailyTotalStatModel.find(function(err, result) {
-    res.send(result);
-  });
+    dailyTotalStatModel.find(function(err, result) {
+        res.send(result);
+    });
 });
 
 app.get('/dailyAgentStats', function(req, res) {
-  dailyAgentStatModel.find(function(err, result) {
-    res.send(result);
-  });
+    dailyAgentStatModel.find(function(err, result) {
+        res.send(result);
+    });
 });
 
 app.get('/dailyAccountStats', function(req, res) {
-  dailyAccountStatModel.find(function(err, result) {
-    res.send(result);
-  });
+    dailyAccountStatModel.find(function(err, result) {
+        res.send(result);
+    });
 });
 
 // create
@@ -71,6 +71,24 @@ app.post('/dailyAgentStats', function (req, res){
     return res.send(dailyAgentStat);
 });
 
+app.post('/dailyAccountStats', function (req, res){
+    var dailyAccountStat;
+    dailyAccountStat = new dailyAccountStatModel({
+        date: Date.now(),
+        name: req.body.name,
+        min: req.body.min,
+        max: req.body.max
+    });
+    dailyAccountStat.save(function (err) {
+        if (!err) {
+            return console.log("created");
+        } else {
+            return console.log(err);
+        }
+    });
+    return res.send(dailyAccountStat);
+});
+
 // update
 
 app.put('/dailyTotalStats/:id', function (req, res) {
@@ -95,5 +113,16 @@ app.put('/dailyAgentStats/:id', function (req, res) {
     });
 });
 
+app.put('/dailyAccountStats/:id', function (req, res) {
+    dailyAccountStatModel.findByIdAndUpdate(req.params.id, { date: Date.now(), min: req.body.min, max: req.body.max }, function(err, stat) { 
+        if (!err) {
+            console.log("updated");
+        } else {
+            console.log(err);
+        }
+        res.send(stat);
+    });
+});
+
 app.listen(3000);
-console.log('Listening on port 3000');
+console.log('Listening on port 3000 bro');
