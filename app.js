@@ -18,7 +18,7 @@ app.get('/', function(req, res){
 
 app.get('/dailyTotalStats/today', function(req, res) {
     var now = new Date();
-    dailyTotalStatModel.find({"date": {"$gte": new Date(now.getFullYear, now.getMonth(), now.getDate()), "$lt": new Date(now.getFullYear, now.getMonth(), now.getDate() +1)}}, function(err, result) {
+    dailyTotalStatModel.find({"date": {"$gte": new Date(now.getFullYear(), now.getMonth(), now.getDate())}}, function(err, result) {
         res.send(result);
     });
 });
@@ -29,8 +29,21 @@ app.get('/dailyTotalStats', function(req, res) {
     });
 });
 
+app.get('/dailyAgentStats/today', function(req, res) {
+    var now = new Date();
+    dailyAgentStatModel.find({"date": {"$gte": new Date(now.getFullYear(), now.getMonth(), now.getDate())}}, function(err, result) {
+        res.send(result);
+    });
+});
+
 app.get('/dailyAgentStats', function(req, res) {
     dailyAgentStatModel.find(function(err, result) {
+        res.send(result);
+    });
+});
+
+app.get('/dailyAccountStats/today', function(req, res) {
+    dailyAccountStatModel.find({"date": {"$gte": new Date(now.getFullYear(), now.getMonth(), now.getDate())}}, function(err, result) {
         res.send(result);
     });
 });
