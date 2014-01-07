@@ -16,6 +16,13 @@ app.get('/', function(req, res){
 
 // retrieve
 
+app.get('/dailyTotalStats/today', function(req, res) {
+    var now = new Date();
+    dailyTotalStatModel.find({"date": {"$gte": new Date(now.getFullYear, now.getMonth(), now.getDate()), "$lt": new Date(now.getFullYear, now.getMonth(), now.getDate() +1)}}, function(err, result) {
+        res.send(result);
+    });
+});
+
 app.get('/dailyTotalStats', function(req, res) {
     dailyTotalStatModel.find(function(err, result) {
         res.send(result);
