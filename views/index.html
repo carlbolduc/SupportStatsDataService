@@ -1,8 +1,31 @@
+<style>
+h1 {
+	font-family: 'Segoe UI', sans-serif;
+	font-size: 2.2em;	
+}
+
+h2 {
+	font-family: 'Segoe UI', sans-serif;
+	font-size: 2em;	
+}
+
+h3 {
+	font-family: 'Segoe UI', sans-serif;
+	font-size: 1.8em;	
+}
+
+p {
+	font-family: 'Segoe UI', sans-serif;
+	font-size: 1.5em;
+}
+</style>
+
 <h1>This is the <%= title %></h1>
 
-<p>List of URLs</p>
-<u>
-    <li><a href="/dailyTotalStats">/dailyTotalStats</a></li>
-    <li><a href="/dailyAgentStats">/dailyAgentStats</a></li>
-    <li><a href="/dailyAccountStats">/dailyAccountStats</a></li>
-</u>
+<h2>List of URLs</h2>
+<h3><a href="/dailyTotalStats">/dailyTotalStats</a></h3>
+<p>List the total number of cases (minimum and maximum) for all the days that have been logged so far, one entry per day. Adding <a href="/dailyTotalStats/today">/today</a> to that route will return the total number of cases (minimum and maximum) for the current day, if it exists.</p>
+<h3><a href="/dailyAgentStats">/dailyAgentStats</a></h3>
+<p>List the total number of cases (minimum and maximum) for all agents and all the days that have been logged so far, one entry per day per agent. Adding <a href="/dailyAgentStats/Carl Bolduc/today">/[AgentName]/today</a> to that route will return the total number of cases (minimum and maximum) for a specific agent and for the current day, if it exists.</p>
+<h3><a href="/dailyAccountStats">/dailyAccountStats</a></h3>
+<p>List the total number of cases (minimum and maximum) for all agents and all the days that have been logged so far, one entry per day per agent. Adding <a href="/dailyAccountStats/Coveo Solution Inc/today">/[AccountName]/today</a> to that route will return the total number of cases (minimum and maximum) for a specific agent and for the current day, if it exists.</p>
