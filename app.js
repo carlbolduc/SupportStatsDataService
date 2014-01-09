@@ -19,7 +19,7 @@ app.get('/', function(req, res){
 app.get('/dailyTotalStats/today', function(req, res) {
     var now = new Date();
     dailyTotalStatModel.find({"date": {"$gte": new Date(now.getFullYear(), now.getMonth(), now.getDate())}}, function(err, result) {
-        res.send(result);
+        res.send(result[0]); // return 1 json object instead of an array of json object(s)
     });
 });
 
@@ -29,10 +29,10 @@ app.get('/dailyTotalStats', function(req, res) {
     });
 });
 
-app.get('/dailyAgentStats/today', function(req, res) {
+app.get('/dailyAgentStats/:name/today', function(req, res) {
     var now = new Date();
-    dailyAgentStatModel.find({"date": {"$gte": new Date(now.getFullYear(), now.getMonth(), now.getDate())}}, function(err, result) {
-        res.send(result);
+    dailyAgentStatModel.find({"name": req.params.name, "date": {"$gte": new Date(now.getFullYear(), now.getMonth(), now.getDate())}}, function(err, result) {
+        res.send(result[0]); // return 1 json object instead of an array of json object(s)
     });
 });
 
@@ -42,9 +42,10 @@ app.get('/dailyAgentStats', function(req, res) {
     });
 });
 
-app.get('/dailyAccountStats/today', function(req, res) {
-    dailyAccountStatModel.find({"date": {"$gte": new Date(now.getFullYear(), now.getMonth(), now.getDate())}}, function(err, result) {
-        res.send(result);
+app.get('/dailyAccountStats/:name/today', function(req, res) {
+    var now = new Date();
+    dailyAccountStatModel.find({"name": req.params.name, "date": {"$gte": new Date(now.getFullYear(), now.getMonth(), now.getDate())}}, function(err, result) {
+        res.send(result[0]); // return 1 json object instead of an array of json object(s)
     });
 });
 
@@ -101,7 +102,7 @@ app.post('/dailyAccountStats', function (req, res){
     });
     dailyAccountStat.save(function (err) {
         if (!err) {
-            return console.log("created");
+            return console.log("created " + req.body.name);
         } else {
             return console.log(err);
         }
@@ -112,6 +113,7 @@ app.post('/dailyAccountStats', function (req, res){
 // update
 
 app.put('/dailyTotalStats/:id', function (req, res) {
+    console.log(req.body.min);
     dailyTotalStatModel.findByIdAndUpdate(req.params.id, { date: Date.now(), min: req.body.min, max: req.body.max }, function(err, stat) { 
         if (!err) {
             console.log("updated");
